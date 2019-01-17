@@ -1,7 +1,6 @@
 <template>
-  <div id="app">
-    hello111 3333world
-    <h1 >我是谁</h1>
+  <div id="app">hello111 3333world
+    <h1>我ddd纷333纷是谁</h1>
     <img :src="require('./生命周期.png')" alt srcset>
     <div id="main">{{data}}</div>
 
@@ -10,7 +9,7 @@
 </template>
 
 <script>
-import echarts from 'echarts'
+import echarts from "echarts";
 console.log(echarts);
 export default {
   data: {

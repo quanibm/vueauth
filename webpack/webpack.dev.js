@@ -1,9 +1,6 @@
 const path = require('path');
-const Koa = require('koa');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const devMiddleware = require('./middleware/devMiddleware');
-const hotMiddleware = require('./middleware/hotMiddleware');
 const config = require('./webpack.config.js');
 process.env.NODE_ENV = 'dev';
 
@@ -16,7 +13,8 @@ const html_w_p = new HtmlWebpackPlugin({
   inject: true,
   hash: false
 });
-config.plugins.push(html_w_p);
+const hotMiddlewarePlun = new webpack.HotModuleReplacementPlugin();
+config.plugins.push(html_w_p, hotMiddlewarePlun);
 
 const devConfig = {
   mode: 'development'
@@ -42,22 +40,4 @@ const devConfig = {
   //   }
   // }
 };
-const compiler = webpack(Object.assign({}, config, devConfig));
-const middleware = require('koa-webpack');
-const app = new Koa();
-app.use(
-  devMiddleware(compiler, {
-    publicPath: config.output.publicPath
-  })
-);
-app.use(hotMiddleware(compiler));
-// app.use(
-//   middleware({
-//     compiler: compiler
-//   })
-// );
-app.listen(9999, () => {
-  console.log('app started at port 9999');
-});
-
-// module.exports = Object.assign({}, config, devConfig);
+module.exports = Object.assign({}, config, devConfig);
