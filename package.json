@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev1": "webpack-dev-server --config webpack/webpack.dev.js",
-    "dev": "node server/index.js",
+    "dev": "nodemon server/index.js",
     "build": "webpack  --config webpack/webpack.prod.js"
   },
   "dependencies": {
@@ -23,8 +23,9 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
-    "koa-webpack": "^5.1.0",
+    "koa-webpack": "^5.2.1",
     "koa-webpack-dev-middleware": "^2.0.2",
+    "koa-webpack-hot-middleware": "^1.0.3",
     "mongoose": "^5.3.1",
     "mysql2": "^1.6.1",
     "mz": "^2.7.0",
@@ -32,12 +33,14 @@
     "nunjucks": "2.4.2",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
+    "raw-loader": "^1.0.0",
     "redux": "^4.0.0",
     "sequelize": "^4.39.0",
     "vue": "^2.5.22",
     "vue-router": "^3.0.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.22",
+    "webpack-hot-client": "^4.1.1",
     "webpack-hot-middleware": "^2.24.3",
     "ws": "^6.1.0"
   },

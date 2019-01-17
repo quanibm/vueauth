@@ -7,8 +7,11 @@ const compress = require('koa-compress');
 const webpack = require('webpack');
 const koaBody = require('./libs/koaBody');
 const cors = require('./libs/cors');
-const devMiddleware = require('../webpack/middleware/devMiddleware');
-const hotMiddleware = require('../webpack/middleware/hotMiddleware');
+// const devMiddleware = require('../webpack/middleware/devMiddleware');
+// const hotMiddleware = require('../webpack/middleware/hotMiddleware');
+const koaWepack = require('koa-webpack');
+const devMiddleware = require('koa-webpack-dev-middleware');
+const hotMiddleware = require('koa-webpack-hot-middleware');
 
 const app = new Koa();
 
@@ -98,10 +101,41 @@ class AngelServer extends AngelConfig {
     this.app.use(
       devMiddleware(this.compiler, {
         noInfo: true,
+        reload: true,
         publicPath: this.webpackConfig.output.publicPath
       })
     );
-    this.app.use(hotMiddleware(this.compiler));
+    this.app.use(hotMiddleware(this.compiler), { noInfo: true, reload: true });
+
+    // this.app.use(async (ctx) => {
+    //   const filename = path.resolve(this.webpackConfig.output.path, 'index.html')
+    //   ctx.response.type = 'html'
+    //   console.log(devMiddleware.fileSystem.createReadStream(filename));
+    //   ctx.response.body = devMiddleware.fileSystem.createReadStream(filename)1111
+    // });
+    // this.koawebpack = async () => {
+    //   let
+    //   return await koaWepack({ compiler: this.compiler });
+    // };
+
+    // this.app.use(this.koawebpack);
+    // this.app.use(
+    //   koaWepack(this.compiler, {
+    //     // hot: {
+    //     //   log: () => { }
+    //     // },
+    //     // dev: {
+    //     //   noInfo: true,
+    //     //   serverSideRender: true,
+    //     //   hot: true,
+    //     //   logLevel: 'error',
+    //     //   stats: {
+    //     //     colors: true
+    //     //   },
+    //     //   publicPath: ''
+    //     // }
+    //   })
+    // );
 
     // 启动服务器
     this.app.listen(this.port, () => {

@@ -14,30 +14,39 @@ const html_w_p = new HtmlWebpackPlugin({
   hash: false
 });
 const hotMiddlewarePlun = new webpack.HotModuleReplacementPlugin();
-config.plugins.push(html_w_p, hotMiddlewarePlun);
 
 const devConfig = {
-  mode: 'development'
-  // devServer: {
-  //   //https://webpack.js.org/configuration/dev-server/#src/components/Sidebar/Sidebar.jsx
-  //   historyApiFallback: true,
-  //   disableHostCheck: true,
-  //   contentBase: path.resolve(__dirname, '../public'),
-  //   host: 'localhost',
-  //   compress: true, //gzip 亚索
-  //   inline: true, //实时刷新
-  //   port: 9999,
-  //   stats: {
-  //     assets: true,
-  //     children: false,
-  //     chunks: false,
-  //     hash: true,
-  //     modules: false,
-  //     publicPath: false,
-  //     timings: true,
-  //     version: false,
-  //     warnings: true
-  //   }
-  // }
+  mode: 'development',
+  devServer: {
+    //https://webpack.js.org/configuration/dev-server/#src/components/Sidebar/Sidebar.jsx
+    historyApiFallback: true,
+    disableHostCheck: true,
+    contentBase: path.resolve(__dirname, '../public'),
+    host: 'localhost',
+    compress: true, //gzip 亚索
+    inline: true, //实时刷新
+    port: 9998,
+    stats: {
+      assets: true,
+      children: false,
+      chunks: false,
+      hash: true,
+      modules: false,
+      publicPath: false,
+      timings: true,
+      version: false,
+      warnings: true
+    }
+  }
 };
+
+config.plugins.push(html_w_p, hotMiddlewarePlun);
+config.entry.index.push(
+  'webpack-hot-middleware/client?noInfo=true&reload=true'
+);
+config.module.rules.push({
+  test: /\.(htm|html)$/,
+  use: 'raw-loader'
+});
+
 module.exports = Object.assign({}, config, devConfig);

@@ -20,7 +20,9 @@ const extract_w_p = new ExtractTextPlugin({
 });
 
 module.exports = {
-  entry: ['babel-polyfill', path.resolve(__dirname, '../src/index.js')],
+  entry: {
+    index: ['babel-polyfill', path.resolve(__dirname, '../src/index.js')]
+  },
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/', //如果react-router 在多级路由下找不到css 或者js 资源的话配置这个可以解决
