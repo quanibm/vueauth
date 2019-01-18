@@ -138,7 +138,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           name: '[name].[ext]',
-          limit: 1024 * 100,
+          limit: 1024 * 10,
           fallback: 'file-loader'
         }
       },
