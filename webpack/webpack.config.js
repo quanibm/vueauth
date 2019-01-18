@@ -139,6 +139,7 @@ module.exports = {
         options: {
           name: '[name].[ext]',
           limit: 1024 * 10,
+          outputPath: 'images',
           fallback: 'file-loader'
         }
       },
@@ -149,8 +150,8 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[path][name].[ext]',
-              // outputPath: 'images'
+              name: '[name].[ext]',
+              outputPath: 'files',
               publicPath: '/',
               emitFile: true //默认情况下会生成文件，可以通过将此项设置为 false 来禁用（例如使用了服务端的 packages）。
               //useRelativePath: process.env.NODE_ENV === "production" //如果你希望为每个文件生成一个相对 URL 的 context 时，应该将 useRelativePath 设置为 true。
@@ -160,5 +161,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [ extract_w_p, new VueLoaderPlugin()]
+  plugins: [extract_w_p, new VueLoaderPlugin()]
 };
