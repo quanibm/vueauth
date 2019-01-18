@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-    <div id="main"></div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import echarts from "echarts";
 export default {};
 </script>
+
+<style scoped lang="scss">
+h1 {
+  font-size: 20px;
+  margin: 20px;
+}
+</style>
