@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/content" v-text="'内容333页111111'"></router-link>
+        <router-link to="/content" v-text="'3333'"></router-link>
     </div>
 </template>
 

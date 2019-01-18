@@ -1,6 +1,5 @@
 <template>
-  <div id="app">hello111 3333world
-    <h1>100101011010</h1>
+  <div id="app">
     <img :src="require('./生命周期.png')" alt srcset>
     <div id="main"></div>
 

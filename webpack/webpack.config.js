@@ -1,5 +1,4 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const mqpacker = require('css-mqpacker');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
@@ -9,10 +8,7 @@ const path = require('path');
 const process = require('process');
 //插件实例
 console.log(process.env.NODE_ENV);
-const clean_w_p = new CleanWebpackPlugin(['../dist'], {
-  root: path.resolve(__dirname, '..'),
-  verbose: true
-});
+
 const extract_w_p = new ExtractTextPlugin({
   filename: 'bundle.css',
   disable: false,
@@ -31,7 +27,16 @@ module.exports = {
 
   resolve: {
     modules: ['node_modules', 'src'], // import时到哪些地方去寻找模块
-    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'], // require的时候可以直接使用require('file')，不用require('file.js')
+    extensions: [
+      '.web.js',
+      '.mjs',
+      '.js',
+      '.vue',
+      'scss',
+      '.json',
+      '.web.jsx',
+      '.jsx'
+    ], // require的时候可以直接使用require('file')，不用require('file.js')
     alias: {
       reducers: `${path.resolve(__dirname)}/../src/common/reducers`,
       vue: 'vue/dist/vue.js' //因为是使用webpack，默认实用的是vue的runtime版本，不包含编译，因此会报错，在config中添加如下代码
@@ -43,7 +48,9 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          hotReload: process.env.NODE_ENV !== 'production'
+          compilerOptions: {
+            preserveWhitespace: false
+          }
         }
       },
       {
@@ -85,50 +92,59 @@ module.exports = {
         }
       },
       {
-        test: /\.(css|scss)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-          use: [
-            'vue-style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: process.env.NODE_ENV === 'production', //是否压缩css
-                modules: false, //开启将会吧选择器变成随机字符串
-                // localIdentName: "[path][name]__[local]--[hash:base64:5]",
-                // getLocalIdent: (
-                //   context,
-                //   localIdentName,
-                //   localName,
-                //   options
-                // ) => {
-                //   return "whatever_random_class_name";
-                // }
-                publicPath: '/'
-              }
-            },
-            'sass-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [precss(), autoprefixer(), mqpacker()]
-              }
-            }
-          ]
-        })
+        test: /\.(scss|css)$/,
+        use:
+          process.env.NODE_ENV === 'production'
+            ? ExtractTextPlugin.extract({
+                fallback: 'vue-style-loader',
+                //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
+                use: [
+                  {
+                    loader: 'css-loader',
+                    options: {
+                      minimize: process.env.NODE_ENV === 'production', //是否压缩css
+                      modules: false, //开启将会吧选择器变成随机字符串
+                      // localIdentName: "[path][name]__[local]--[hash:base64:5]",
+                      // getLocalIdent: (
+                      //   context,
+                      //   localIdentName,
+                      //   localName,
+                      //   options
+                      // ) => {
+                      //   return "whatever_random_class_name";
+                      // }
+                      publicPath: '/'
+                    }
+                  },
+                  {
+                    loader: 'postcss-loader',
+                    options: {
+                      plugins: [precss(), autoprefixer(), mqpacker()]
+                    }
+                  },
+                  {
+                    loader: 'sass-loader',
+                    options: {
+                      // 你也可以从一个文件读取，例如 `variables.scss`
+                      data: `$color: red;`
+                    }
+                  }
+                ]
+              })
+            : ['vue-style-loader', 'css-loader', 'sass-loader']
       },
-      // {
-      //   test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-      //   loader: "url-loader",
-      //   options: {
-      //     name: "[path][name].[ext]",
-      //     limit: 1024 * 10,
-      //     fallback: "file-loader"
-      //   }
-      // },
       {
-        test: /\.(png|jpg|gif|mp3)$/,
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader',
+        options: {
+          name: '[name].[ext]',
+          limit: 1024 * 100,
+          fallback: 'file-loader'
+        }
+      },
+      {
+        test: /\.(eot|woff|svg|ttf|woff2|gif|appcache|mp3)(\?|$)/,
+        exclude: /^node_modules$/,
         use: [
           {
             loader: 'file-loader',
@@ -144,5 +160,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [clean_w_p, extract_w_p, new VueLoaderPlugin()]
+  plugins: [ extract_w_p, new VueLoaderPlugin()]
 };
