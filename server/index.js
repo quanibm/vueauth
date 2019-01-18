@@ -68,15 +68,15 @@ class AngelServer extends AngelConfig {
     );
 
     //访问日志
-    // this.app.use(async (ctx, next) => {
-    //   await next();
-    //   const rt = ctx.response.get('X-Response-Time');
-    //   ctx.logger.info(
-    //     `angel ${ctx.method}`.green,
-    //     ` ${ctx.url} - `,
-    //     `${rt}`.green
-    //   );
-    // });
+    this.app.use(async (ctx, next) => {
+      await next();
+      const rt = ctx.response.get('X-Response-Time');
+      // ctx.logger.info(
+      //   `angel ${ctx.method}`.green,
+      //   ` ${ctx.url} - `,
+      //   `${rt}`.green
+      // );
+    });
 
     // 响应时间;
     this.app.use(async (ctx, next) => {
@@ -86,14 +86,8 @@ class AngelServer extends AngelConfig {
       ctx.set('X-Response-Time', `${ms}ms`);
     });
     //路由管理
-    // this.router({
-    //   router,
-    //   config: this.config,
-    //   app: this.app
-    // });
-
-    // this.app.use(router.routes())
-    //   .use(router.allowedMethods());
+    this.app.use(this.router('routes'))
+      .use(router.allowedMethods());
 
     // 静态资源
     this.app.use(koaStatic(this.config.root, this.config.static));
@@ -145,7 +139,7 @@ class AngelServer extends AngelConfig {
 }
 
 var server = new AngelServer({
-  routerUrl: path.join(process.cwd(), 'server/routes/router.js'), //路由地址
+  routerUrl: path.join(process.cwd(), 'server/libs/controllers.js'), //路由地址
   configUrl: path.join(process.cwd(), 'server/config/config.default.js'), //默认读取config/config.default.js
   webpackUrl: path.join(process.cwd(), 'webpack/webpack.dev.js')
 });
