@@ -146,7 +146,7 @@ module.exports = {
                   loader: 'sass-resources-loader',
                   options: {
                     // 你也可以从一个文件读取，例如 `variables.scss`
-                    resources: path.join(process.cwd(), 'src/variable.scss')
+                    resources: path.join(process.cwd(), 'src/common/scss/variable.scss')
                   }
                 }
               ]
