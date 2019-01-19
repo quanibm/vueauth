@@ -1,0 +1,19 @@
+$vw_design: 750; 
+$vw_fontsize: 75;
+
+
+
+
+$color: pink;
+
+
+
+
+@function vw($px) {
+    @return ($px / 750) * 100vw;
+}
+
+@function rem($px) {
+    @return ($px / $vw_fontsize) * 1rem;
+}
+

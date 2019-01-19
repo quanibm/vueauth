@@ -1,10 +1,10 @@
+process.env.NODE_ENV = "production";
 const path = require("path");
 const process = require("process");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-process.env.NODE_ENV = "production";
 const config = require("./webpack.config.js");
 
 // const copy_w_p = new CopyWebpackPlugin([

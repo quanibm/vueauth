@@ -10,6 +10,7 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+h1{
+}
 </style>

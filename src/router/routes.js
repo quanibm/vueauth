@@ -5,7 +5,7 @@ import home from '../pages/home/home.vue';
 import lotter from '../pages/lotter/lotter.vue';
 import recharge from '../pages/recharge/recharge.vue';
 import myinfo from '../pages/myinfo/myinfo.vue';
-import game from '../pages/game/game.vue';
+import game from '../component/game/game.vue';
 
 
 Vue.use(Router);

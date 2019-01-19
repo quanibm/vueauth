@@ -126,12 +126,30 @@ module.exports = {
                     loader: 'sass-loader',
                     options: {
                       // 你也可以从一个文件读取，例如 `variables.scss`
-                      data: `$color: red;`
+                      // data: path.join(process.cwd(), 'src/index.scss')
+                    }
+                  },
+                  {
+                    loader: 'sass-resources-loader',
+                    options: {
+                      // 你也可以从一个文件读取，例如 `variables.scss`
+                      resources: path.join(process.cwd(), 'src/index.scss')
                     }
                   }
                 ]
               })
-            : ['vue-style-loader', 'css-loader', 'sass-loader']
+            : [
+                'vue-style-loader',
+                'css-loader',
+                'sass-loader',
+                {
+                  loader: 'sass-resources-loader',
+                  options: {
+                    // 你也可以从一个文件读取，例如 `variables.scss`
+                    resources: path.join(process.cwd(), 'src/variable.scss')
+                  }
+                }
+              ]
       },
       {
         test: /\.(png|jpg)$/,
