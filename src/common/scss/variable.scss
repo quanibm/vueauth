@@ -1,19 +1,44 @@
-$vw_design: 750; 
+$vw_design: 750;
 $vw_fontsize: 75;
-
-
-
 
 $color: pink;
 
-
-
+$color-background: #fff;
+$color-background-m: #222;
+$color-background-g: #f4f4f4;
+$color-highlight-background: #333;
+$color-text: #000;
+$color-text-w: #fff;
+$color-text-g: grey;
+$color-d: rgba(255, 255, 255, 0.5);
+$color-d-a: rgba(255, 255, 255, 0.8);
+$color-p: rgba(0, 0, 0, 0.3);
+$color-text-w: #eee;
+$color-text-l: #6cf;
+$color-text-ll: #9cf;
+$color-theme: #6cf;
+$color-theme-d: rgba(255, 255, 255, 0.5);
+$color-theme-l: rgba(103, 204, 255, 0.5);
+$color-sub-theme: #d93f30;
+//字体定义规范
+$font-size-small-s: 10px;
+$font-size-small: 12px;
+$font-size-medium: 14px;
+$font-size-medium-x: 16px;
+$font-size-large: 18px;
+$font-size-large-x: 22px;
 
 @function vw($px) {
-    @return ($px / 750) * 100vw;
+  @return ($px * 2 / 750) * 100vw;
 }
 
 @function rem($px) {
-    @return ($px / $vw_fontsize) * 1rem;
+  @return ($px / $vw_fontsize) * 1rem;
 }
 
+@mixin bg-image($url) {
+  background-image: url($url+'@2x.png');
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+    background-image: url($url+'@3x.png');
+  }
+}

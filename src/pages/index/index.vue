@@ -4,74 +4,34 @@
       <h1 class="header-title" v-text="header_title"></h1>
     </v-header>
     <router-view></router-view>
-    <div class="tabs">
-      <div
-        class="tab-item"
-        v-for="(tab, index) in tabs"
-        :key="index"
-        @click="handleClick(tab.name, index)"
-      >
-        <router-link :to="tab.url" v-text="tab.name"></router-link>
-      </div>
-    </div>
+    <v-tabs @handleClick="handleClick"></v-tabs>
   </div>
 </template>
 
 <script>
 import header from "../../component/header/header";
+import tabs from "../../component/tabs/tabs";
 export default {
   data() {
     return {
-      header_title: "主页",
-      tabs: [
-        {
-          name: "主页",
-          url: "/home"
-        },
-        {
-          name: "购彩大厅",
-          url: "/lotter"
-        },
-        {
-          name: "充值",
-          url: "/recharge"
-        },
-        {
-          name: "我的",
-          url: "/myinfo"
-        }
-      ]
+      header_title: "主页"
     };
   },
   methods: {
-    handleClick(name, index) {
+    handleClick({name, index}) {
       this.header_title = name;
     }
   },
   components: {
-    "v-header": header
+    "v-header": header,
+    "v-tabs": tabs
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header-title {
   text-align: center;
   font-size: vw(18);
-}
-.tabs {
-  position: fixed;
-  bottom: 0;
-  background: $color;
-  font-size: vw(16);
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  height: vw(80);
-  line-height: vw(80);
-  .tab-item {
-    flex: 1;
-    text-align: center;
-  }
 }
 </style>
