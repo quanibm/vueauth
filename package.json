@@ -13,6 +13,7 @@
   "dependencies": {
     "antd": "^3.10.7",
     "axios": "^0.18.0",
+    "better-scroll": "^1.14.1",
     "echarts": "^4.2.0-rc.2",
     "ejs": "^2.6.1",
     "express": "^4.16.4",

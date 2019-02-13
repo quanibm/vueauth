@@ -1,16 +1,19 @@
 <template>
   <div class="recommend">
     <div class="slider-wrapper" v-if="recommends.length">
-      <div v-for="(item, index) in recommends" :key="index">
-        <a :href="item.linkUrl">
-          <img :src="item.picUrl" alt>
-        </a>
-      </div>
+      <v-slider>
+        <div v-for="(item, index) in recommends" :key="index">
+          <a :href="item.linkUrl">
+            <img :src="item.picUrl" alt>
+          </a>
+        </div>
+      </v-slider>
     </div>
   </div>
 </template>
 
 <script>
+import slider from "../../component/slider/slider";
 import { getRecommend } from "../../api/recommend.js";
 import { ERR_OK } from "../../api/config.js";
 export default {
@@ -18,6 +21,9 @@ export default {
     return {
       recommends: []
     };
+  },
+  components: {
+    "v-slider": slider
   },
   created() {
     this._getRecomend();
@@ -35,5 +41,27 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.recommend {
+  position: fixed;
+  width: 100%;
+  top: vw(88);
+  bottom: 0;
+  background-color: #fff;
+  .slider-wrapper {
+    position: relative;
+    width: 100%;
+    height: vw(200);
+    a {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      text-decoration: none;
+      img {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}
 </style>
