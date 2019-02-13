@@ -52,16 +52,6 @@ export default {
     position: relative;
     width: 100%;
     height: vw(200);
-    a {
-      display: block;
-      width: 100%;
-      overflow: hidden;
-      text-decoration: none;
-      img {
-        width: 100%;
-        display: block;
-      }
-    }
   }
 }
 </style>
