@@ -3,7 +3,9 @@
     <v-header>
       <h1 class="header-title">主页</h1>
     </v-header>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <div class="tabs">
       <div class="tab-item">
         <router-link to="/home">主页</router-link>

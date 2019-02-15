@@ -11,7 +11,7 @@ export default {};
 <style scoped lang="scss">
 .header {
   width: 100%;
-  background: red;
+  background: #abd;
   height: 40px;
   line-height: 40px;
 }
